@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App testing Should match snapshot 1`] = `
+<div>
+  <div
+    class="css-466ycc"
+  >
+    <div
+      class="css-gmuwbf"
+    >
+      <p
+        class="chakra-text css-1gjuw9l"
+      >
+        Create a new article
+      </p>
+    </div>
+    <div
+      class="chakra-stack css-17kdbol"
+    >
+      <input
+        aria-label="article-title"
+        class="chakra-input css-0"
+        placeholder="Article Title"
+      />
+      <input
+        class="chakra-input css-0"
+        placeholder="Article url"
+      />
+      <input
+        class="chakra-input css-0"
+        placeholder="Article Language"
+      />
+      <button
+        aria-label="new-article"
+        class="chakra-button css-5c2176"
+        type="button"
+      >
+        Create article
+      </button>
+    </div>
+    <div
+      class="css-gmuwbf"
+    >
+      <p
+        class="chakra-text css-1gjuw9l"
+      >
+        Current articles
+      </p>
+    </div>
+    <table
+      class="chakra-table css-0"
+      role="table"
+    >
+      <thead
+        class="css-0"
+      >
+        <tr
+          class="css-0"
+          role="row"
+        >
+          <th
+            class="css-0"
+          >
+            Article title
+          </th>
+          <th
+            class="css-0"
+          >
+            Article url
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="css-0"
+      >
+        <tr
+          class="css-0"
+          role="row"
+        >
+          <td
+            class="css-0"
+            role="gridcell"
+          >
+            Test title
+          </td>
+          <td
+            class="css-0"
+            role="gridcell"
+          >
+            test.url.com
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;

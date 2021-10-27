@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from "@apollo/client";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Flex,
   Center,
@@ -75,6 +75,7 @@ function App() {
         </Center>
         <Stack spacing={4}>
           <Input
+            aria-label="article-title"
             placeholder="Article Title"
             onInput={(e) => setArticleTitle(e.target.value)}
           />
@@ -87,8 +88,12 @@ function App() {
             onInput={(e) => setArticleLanguage(e.target.value)}
           />
 
-          <Button colorScheme="blue" onClick={createNewArticle}>
-            Create new article
+          <Button
+            aria-label="new-article"
+            colorScheme="blue"
+            onClick={createNewArticle}
+          >
+            Create article
           </Button>
         </Stack>
         <Center>
