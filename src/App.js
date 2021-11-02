@@ -1,59 +1,30 @@
-import { useQuery, useMutation } from "@apollo/client";
 import React, { useState } from "react";
-import {
-  Flex,
-  Center,
-  Spinner,
-  Input,
-  Text,
-  Stack,
-  Button,
-  Table,
-  Th,
-  Tr,
-  Td,
-  Thead,
-  Tbody,
-} from "@chakra-ui/react";
-import { CREATE_ARTICLE } from "./mutations/articles";
+import { useQuery } from "@apollo/client";
+import { Spinner } from "@chakra-ui/react";
+
 import { GET_ARTICLES } from "./queries/articles";
+import Table from "./Table";
+import Form from "./Form";
 
 function App() {
-  const [addArticle] = useMutation(CREATE_ARTICLE, {
-    refetchQueries: [{ query: GET_ARTICLES }],
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const { loading, data, fetchMore } = useQuery(GET_ARTICLES, {
+    variables: { page: currentPage, pageSize: 5 },
   });
-  const { loading, data } = useQuery(GET_ARTICLES);
 
-  const [title, setArticleTitle] = useState(null);
-  const [url, setArticleURL] = useState(null);
-  const [language, setArticleLanguage] = useState(null);
-
-  const createNewArticle = () => {
-    addArticle({
-      variables: { title, url, language },
+  const handleLoadMore = () => {
+    setCurrentPage(currentPage + 1);
+    fetchMore({
+      variables: {
+        page: currentPage,
+      },
     });
   };
 
   const renderArticles = () => {
     if (data) {
-      return (
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>Article title</Th>
-              <Th>Article url</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {data.allArticles.map((article) => (
-              <Tr key={article.id}>
-                <Td>{article.title}</Td>
-                <Td>{article.url}</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      );
+      return <Table data={data} />;
     }
   };
 
@@ -69,38 +40,7 @@ function App() {
     );
   } else {
     return (
-      <Flex w="100%" flexDir="column" justifyItems="center">
-        <Center>
-          <Text fontSize="4xl">Create a new article</Text>
-        </Center>
-        <Stack spacing={4}>
-          <Input
-            aria-label="article-title"
-            placeholder="Article Title"
-            onInput={(e) => setArticleTitle(e.target.value)}
-          />
-          <Input
-            placeholder="Article url"
-            onInput={(e) => setArticleURL(e.target.value)}
-          />
-          <Input
-            placeholder="Article Language"
-            onInput={(e) => setArticleLanguage(e.target.value)}
-          />
-
-          <Button
-            aria-label="new-article"
-            colorScheme="blue"
-            onClick={createNewArticle}
-          >
-            Create article
-          </Button>
-        </Stack>
-        <Center>
-          <Text fontSize="4xl">Current articles</Text>
-        </Center>
-        {renderArticles()}
-      </Flex>
+      <Form handleLoadMore={handleLoadMore} renderArticles={renderArticles} />
     );
   }
 }
